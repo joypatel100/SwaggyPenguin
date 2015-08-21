@@ -10,7 +10,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.game.android.jpbg.framework.Graphics;
 import com.game.android.jpbg.framework.Image;
@@ -39,14 +38,14 @@ public class AndroidGraphics implements Graphics {
 
     @Override
     public Image newImage(int id, ImageFormat format){
-        Log.v(LOG_TAG,resources.getString(id));
+        //Log.v(LOG_TAG,resources.getString(id));
         return newImage(resources.getString(id),format,true,id);
     }
 
     @Override
     public Image newImage(String fileName, ImageFormat format) {
-        Log.v(LOG_TAG,fileName);
-       return newImage(fileName,format,false,0);
+        //Log.v(LOG_TAG,fileName);
+        return newImage(fileName,format,false,0);
     }
 
     private Image newImage(String fileName, ImageFormat format, boolean isId, int id){

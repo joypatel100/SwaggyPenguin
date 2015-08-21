@@ -1,7 +1,6 @@
 package com.game.android.jpbg.swaggypenguin;
 
 import com.game.android.jpbg.framework.Game;
-import com.game.android.jpbg.framework.Graphics;
 import com.game.android.jpbg.framework.Screen;
 
 /**
@@ -22,8 +21,7 @@ public class TryoutScreen extends Screen {
 
     @Override
     public void paint(float deltaTime) {
-        Graphics g = game.getGraphics();
-        g.drawImage(MainMenuScreen.mainMenuScreenImage, GameConstants.mainMenuLocation);
+
     }
 
     @Override

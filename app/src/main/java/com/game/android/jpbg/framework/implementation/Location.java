@@ -17,6 +17,11 @@ public class Location {
         onlyXY = true;
     }
 
+    public Location(int x, int y, int width, int height){
+        this(x,y,-1,-1,width,height);
+        onlyXY = true;
+    }
+
     public Location(int x, int y, int srcX, int srcY, int srcWidth, int srcHeight){
         this.x = x;
         this.y = y;
