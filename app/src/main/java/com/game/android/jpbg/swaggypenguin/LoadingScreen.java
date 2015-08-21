@@ -21,7 +21,7 @@ public class LoadingScreen extends Screen {
     public void update(float deltaTime) {
         Log.v(LOG_TAG,"Update loading screen");
         Graphics g = game.getGraphics();
-        MainMenuScreen.mainMenuScreenImage = g.newImage(R.mipmap.menuscreen, Graphics.ImageFormat.RGB565);
+        MainMenuScreen.mainMenuScreenImage = g.newImage(R.drawable.menuscreen, Graphics.ImageFormat.RGB565);
 
         game.setScreen(new TryoutScreen(game));
     }

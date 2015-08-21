@@ -22,7 +22,7 @@ public class SplashLoadingScreen extends Screen {
     @Override
     public void update(float deltaTime) {
         Graphics g = game.getGraphics();
-        splashImage = g.newImage(R.mipmap.splashscreen2, ImageFormat.RGB565);
+        splashImage = g.newImage(R.drawable.splashscreen2, ImageFormat.RGB565);
 
         game.setScreen(new LoadingScreen(game));
     }
