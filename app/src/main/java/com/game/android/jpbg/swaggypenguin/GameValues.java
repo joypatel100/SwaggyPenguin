@@ -23,18 +23,28 @@ public class GameValues {
             mainMenuScreenBackgroundImg,
             mainMenuScreenPlayButtonImg,
             mainMenuScreenRateButtonImg,
-            mainMenuScreenRankButtonImg;
+            mainMenuScreenRankButtonImg,
+            gameScreenBackgroundImg,
+            gameScreenPauseButtonImg,
+            gameScreenGetReadyImg,
+            gameScreenTapToStartButtonImg,
+            gameScreenResumeButtonImg,
+            gameScreenMenuButtonImg;
 
     public static Location
             splashImgLocation = new Location(0,0),
             mainMenuScreenBackgroundImgLocation,
             mainMenuScreenPenguinAnimationLocation,
-            mainMenuScreenPlayButtonImgLocationInitial,
-            mainMenuScreenPlayButtonImgLocationPushed,
-            mainMenuScreenRateButtonImgLocationInitial,
-            mainMenuScreenRateButtonImgLocationPushed,
-            mainMenuScreenRankButtonImgLocationInitial,
-            mainMenuScreenRankButtonImgLocationPushed;
+            mainMenuScreenPlayButtonImgLocation,
+            mainMenuScreenRateButtonImgLocation,
+            mainMenuScreenRankButtonImgLocation,
+            gameScreenBackgroundImgLocation,
+            gameScreenPauseButtonImgLocation,
+            gameScreenGetReadyImgLocation,
+            gameScreenTapToStartButtonImgLocation,
+            gameScreenResumeButtonImgLocation,
+            gameScreenMenuButtonImgLocation;
+
 
     public static void setupValues(Game game){
         Graphics g = game.getGraphics();
@@ -62,31 +72,56 @@ public class GameValues {
 
         mainMenuScreenPlayButtonImg = g.newImage(R.drawable.main_menu_screen_play_button,
                 ImageFormat.RGB565);
-        mainMenuScreenPlayButtonImgLocationInitial =
+        mainMenuScreenPlayButtonImgLocation =
                 new Location(Math.round(50f/480f*width), Math.round(550f/800f*height),
                         mainMenuScreenPlayButtonImg.getWidth(),
                         mainMenuScreenPlayButtonImg.getHeight());
-        mainMenuScreenPlayButtonImgLocationPushed =
-                new Location(Math.round(50f/480f*width), Math.round(555f/800f*height));
 
         mainMenuScreenRateButtonImg = g.newImage(R.drawable.main_menu_screen_rate_button,
                 ImageFormat.RGB565);
-        mainMenuScreenRateButtonImgLocationInitial =
+        mainMenuScreenRateButtonImgLocation =
                 new Location(Math.round(190f/480f*width),Math.round(465f/800f*height),
                         mainMenuScreenRateButtonImg.getWidth(),
                         mainMenuScreenRateButtonImg.getHeight());
-        mainMenuScreenRateButtonImgLocationPushed =
-                new Location(Math.round(190f/480f*width), Math.round(470f/800f*height));
 
         mainMenuScreenRankButtonImg = g.newImage(R.drawable.main_menu_screen_rank_button,
                 ImageFormat.RGB565);
-        mainMenuScreenRankButtonImgLocationInitial =
+        mainMenuScreenRankButtonImgLocation =
                 new Location(Math.round(260f/480f*width),Math.round(550f/800f*height),
                         mainMenuScreenRankButtonImg.getWidth(),
                         mainMenuScreenRankButtonImg.getHeight());
-        mainMenuScreenRankButtonImgLocationPushed =
-                new Location(Math.round(260f/480f*width), Math.round(555f/800f*height));
 
+        // Game Screen Images and Locations
+        gameScreenBackgroundImg = g.newImage(R.drawable.game_screen_background_0,ImageFormat.RGB565);
+        gameScreenBackgroundImgLocation = splashImgLocation;
+
+        gameScreenPauseButtonImg = g.newImage(R.drawable.game_screen_pause_button,ImageFormat.RGB565);
+        gameScreenPauseButtonImgLocation =
+                new Location(Math.round(20f/480f*width),Math.round(20f/800f*height),
+                        gameScreenPauseButtonImg.getWidth(),
+                        gameScreenBackgroundImg.getHeight());
+
+
+        gameScreenGetReadyImg = g.newImage(R.drawable.game_screen_get_ready,ImageFormat.RGB565);
+        gameScreenGetReadyImgLocation =
+                new Location(Math.round(80f/480f*width), Math.round(130f/800f*height));
+
+        gameScreenTapToStartButtonImg = g.newImage(R.drawable.game_screen_tap_to_start_button,
+                ImageFormat.RGB565);
+        gameScreenTapToStartButtonImgLocation =
+                new Location(Math.round(170f/480f*width),Math.round(255f/800f*height),
+                        gameScreenTapToStartButtonImg.getWidth(),
+                        gameScreenTapToStartButtonImg.getHeight());
+
+        gameScreenResumeButtonImg = g.newImage(R.drawable.game_screen_resume_button,
+                ImageFormat.RGB565);
+        gameScreenResumeButtonImgLocation = new Location(gameScreenPauseButtonImgLocation);
+
+        gameScreenMenuButtonImg = g.newImage(R.drawable.game_screen_menu_button,ImageFormat.RGB565);
+        gameScreenMenuButtonImgLocation =
+                new Location(Math.round(173f/480f*width),Math.round(375f/800f*height),
+                gameScreenMenuButtonImg.getWidth(),
+                gameScreenMenuButtonImg.getHeight());
     }
 
 

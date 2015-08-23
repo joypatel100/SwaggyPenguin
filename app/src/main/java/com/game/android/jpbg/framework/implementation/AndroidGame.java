@@ -3,14 +3,13 @@ package com.game.android.jpbg.framework.implementation;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
-import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -44,25 +43,31 @@ public abstract class AndroidGame extends Activity implements Game {
 
 
         // POSSIBLY ADJUST THIS FOR FUTURE USE
-        //boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        /*
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        display.getSize(size);
+        display.getSize(size);*/
+
+        int frameBufferWidth = isPortrait ? 480:800;
+        int frameBufferHeight = isPortrait ? 800:480;
         //int frameBufferWidth = isPortrait ? 800: 1280;
         //int frameBufferHeight = isPortrait ? 1280: 800;
+        /*
         int frameBufferWidth = size.x;
-        int frameBufferHeight = size.y;
+        int frameBufferHeight = size.y;*/
         Log.v(LOG_TAG,Integer.toString(frameBufferWidth));
         Log.v(LOG_TAG,Integer.toString(frameBufferHeight));
 
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
 
-        //float scaleX = (float) frameBufferWidth / getWindowManager().getDefaultDisplay().getWidth();
-        //float scaleY = (float) frameBufferHeight / getWindowManager().getDefaultDisplay().getHeight();
+        float scaleX = (float) frameBufferWidth / getWindowManager().getDefaultDisplay().getWidth();
+        float scaleY = (float) frameBufferHeight / getWindowManager().getDefaultDisplay().getHeight();
 
+        /*
         float scaleX = 1;
-        float scaleY = 1;
+        float scaleY = 1; */
 
 
 

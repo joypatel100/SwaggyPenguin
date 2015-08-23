@@ -1,5 +1,7 @@
 package com.game.android.jpbg.swaggypenguin;
 
+import android.util.Log;
+
 import com.game.android.jpbg.framework.Game;
 import com.game.android.jpbg.framework.Graphics;
 import com.game.android.jpbg.framework.Input.TouchEvent;
@@ -23,15 +25,15 @@ public class MainMenuScreen extends Screen {
     private Location
         playButtonLocation, rankButtonLocation, rateButtonLocation;
 
-    private enum MainMenuLocationPressedType{
+    private enum MainMenuLocationType {
         playButton, rankButton, rateButton, notButton;
     }
 
     public MainMenuScreen(Game game) {
         super(game);
-        playButtonLocation = GameValues.mainMenuScreenPlayButtonImgLocationInitial;
-        rankButtonLocation = GameValues.mainMenuScreenRankButtonImgLocationInitial;
-        rateButtonLocation = GameValues.mainMenuScreenRateButtonImgLocationInitial;
+        playButtonLocation = GameValues.mainMenuScreenPlayButtonImgLocation;
+        rankButtonLocation = GameValues.mainMenuScreenRankButtonImgLocation;
+        rateButtonLocation = GameValues.mainMenuScreenRateButtonImgLocation;
     }
 
     @Override
@@ -40,18 +42,18 @@ public class MainMenuScreen extends Screen {
         GameValues.mainMenuScreenPenguinAnimation.update(deltaTime);
         List<TouchEvent> events = game.getInput().getTouchEvents();
         for(TouchEvent event: events){
-            MainMenuLocationPressedType locationType = mainMenuLocationPressDownType(event);
+            MainMenuLocationType locationType = pressDownLocationType(event);
             switch (event.type) {
                 case TouchEvent.TOUCH_DOWN:
                     switch (locationType) {
                         case playButton:
-                            playButtonLocation = GameValues.mainMenuScreenPlayButtonImgLocationPushed;
+                            playButtonLocation.down();
                             break;
                         case rankButton:
-                            rankButtonLocation = GameValues.mainMenuScreenRankButtonImgLocationPushed;
+                            rankButtonLocation.down();
                             break;
                         case rateButton:
-                            rateButtonLocation = GameValues.mainMenuScreenRateButtonImgLocationPushed;
+                            rateButtonLocation.down();
                             break;
                         default:
                             break;
@@ -60,22 +62,26 @@ public class MainMenuScreen extends Screen {
                 case TouchEvent.TOUCH_UP:
                     switch (locationType){
                         case playButton:
-                            playButtonLocation = GameValues.mainMenuScreenPlayButtonImgLocationInitial;
+                            playButtonLocation.up();
+                            game.setScreen(new GameScreen(game));
                             break;
                         case rankButton:
-                            rankButtonLocation = GameValues.mainMenuScreenRankButtonImgLocationInitial;
+                            rankButtonLocation.up();
                             break;
                         case rateButton:
-                            rateButtonLocation = GameValues.mainMenuScreenRateButtonImgLocationInitial;
+                            rateButtonLocation.up();
                             break;
                         case notButton:
-                            playButtonLocation = GameValues.mainMenuScreenPlayButtonImgLocationInitial;
-                            rankButtonLocation = GameValues.mainMenuScreenRankButtonImgLocationInitial;
-                            rateButtonLocation = GameValues.mainMenuScreenRateButtonImgLocationInitial;
+                            playButtonLocation.up();
+                            rankButtonLocation.up();
+                            rateButtonLocation.up();
                             break;
                         default:
                             break;
                     }
+                    break;
+                default:
+                    break;
 
             }
         }
@@ -84,16 +90,16 @@ public class MainMenuScreen extends Screen {
 
     @Override
     public void paint(float deltaTime) {
-        Graphics g = game.getGraphics();
-        g.drawImage(GameValues.mainMenuScreenBackgroundImg,
+        Graphics graphics = game.getGraphics();
+        graphics.drawImage(GameValues.mainMenuScreenBackgroundImg,
                 GameValues.mainMenuScreenBackgroundImgLocation);
-        g.drawImage(GameValues.mainMenuScreenPenguinAnimation.getImage(),
+        graphics.drawImage(GameValues.mainMenuScreenPenguinAnimation.getImage(),
                 GameValues.mainMenuScreenPenguinAnimationLocation);
-        g.drawImage(GameValues.mainMenuScreenPlayButtonImg,
+        graphics.drawImage(GameValues.mainMenuScreenPlayButtonImg,
                 playButtonLocation);
-        g.drawImage(GameValues.mainMenuScreenRankButtonImg,
+        graphics.drawImage(GameValues.mainMenuScreenRankButtonImg,
                 rankButtonLocation);
-        g.drawImage(GameValues.mainMenuScreenRateButtonImg,
+        graphics.drawImage(GameValues.mainMenuScreenRateButtonImg,
                 rateButtonLocation);
     }
 
@@ -109,7 +115,9 @@ public class MainMenuScreen extends Screen {
 
     @Override
     public void dispose() {
-
+        playButtonLocation = null;
+        rankButtonLocation = null;
+        rateButtonLocation = null;
     }
 
     @Override
@@ -117,29 +125,20 @@ public class MainMenuScreen extends Screen {
 
     }
 
-    private MainMenuLocationPressedType mainMenuLocationPressDownType (TouchEvent event){
+    private MainMenuLocationType pressDownLocationType(TouchEvent event){
         if(Utility.inBounds(event,
-                GameValues.mainMenuScreenPlayButtonImgLocationInitial.x,
-                GameValues.mainMenuScreenPlayButtonImgLocationInitial.y,
-                GameValues.mainMenuScreenPlayButtonImgLocationInitial.srcWidth,
-                GameValues.mainMenuScreenPlayButtonImgLocationInitial.srcHeight)){
-            return MainMenuLocationPressedType.playButton;
+                GameValues.mainMenuScreenPlayButtonImgLocation)){
+            return MainMenuLocationType.playButton;
         }
         else if(Utility.inBounds(event,
-                GameValues.mainMenuScreenRankButtonImgLocationInitial.x,
-                GameValues.mainMenuScreenRankButtonImgLocationInitial.y,
-                GameValues.mainMenuScreenRankButtonImgLocationInitial.srcWidth,
-                GameValues.mainMenuScreenRankButtonImgLocationInitial.srcHeight)) {
-            return MainMenuLocationPressedType.rankButton;
+                GameValues.mainMenuScreenRankButtonImgLocation)) {
+            return MainMenuLocationType.rankButton;
         }
         else if(Utility.inBounds(event,
-                GameValues.mainMenuScreenRateButtonImgLocationInitial.x,
-                GameValues.mainMenuScreenRateButtonImgLocationInitial.y,
-                GameValues.mainMenuScreenRateButtonImgLocationInitial.srcWidth,
-                GameValues.mainMenuScreenRateButtonImgLocationInitial.srcHeight)){
-            return MainMenuLocationPressedType.rateButton;
+                GameValues.mainMenuScreenRateButtonImgLocation)){
+            return MainMenuLocationType.rateButton;
         }
-        return MainMenuLocationPressedType.notButton;
+        return MainMenuLocationType.notButton;
     }
 
     private void refreshesStats(float deltaTime){
@@ -157,7 +156,7 @@ public class MainMenuScreen extends Screen {
             //Log.v(LOG_TAG, Long.toString(statsTotalRuns/statsTotal1SRuns));
 
             // Avg Delta Time Total per second
-            //Log.v(LOG_TAG, Long.toString(statsTotalDTime / statsTotal1SRuns));
+            Log.v(LOG_TAG, Long.toString(statsTotalDTime / statsTotal1SRuns));
 
             statsTime = System.currentTimeMillis();
             statsCurRuns = 0;

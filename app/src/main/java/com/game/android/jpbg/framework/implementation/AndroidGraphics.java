@@ -150,7 +150,7 @@ public class AndroidGraphics implements Graphics {
 
     @Override
     public void drawImage(Image image, Location location){
-        if(location.onlyXY){
+        if(location.srcX == -1){
             drawImage(image, location.x, location.y);
         }
         else{
