@@ -18,15 +18,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class AndroidGraphics implements Graphics {
-    AssetManager assets;
-    Resources resources;
-    Bitmap frameBuffer;
-    Canvas canvas;
-    Paint paint;
-    Rect srcRect = new Rect();
-    Rect dstRect = new Rect();
+    private AssetManager assets;
+    private Resources resources;
+    private Bitmap frameBuffer;
+    private Canvas canvas;
+    private Paint paint;
+    private Rect srcRect = new Rect();
+    private Rect dstRect = new Rect();
 
-    private final String LOG_TAG = AndroidGraphics.class.getSimpleName();
+    private static final String LOG_TAG = AndroidGraphics.class.getSimpleName();
 
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer, Resources resources) {
         this.assets = assets;
@@ -34,6 +34,16 @@ public class AndroidGraphics implements Graphics {
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
         this.resources = resources;
+    }
+
+    @Override
+    public Image newImage(String fileName) {
+        return newImage(fileName, ImageFormat.RGB565);
+    }
+
+    @Override
+    public Image newImage(int id) {
+        return newImage(id,ImageFormat.RGB565);
     }
 
     @Override
@@ -45,7 +55,7 @@ public class AndroidGraphics implements Graphics {
     @Override
     public Image newImage(String fileName, ImageFormat format) {
         //Log.v(LOG_TAG,fileName);
-        return newImage(fileName,format,false,0);
+        return newImage(fileName,format,false,-1);
     }
 
     private Image newImage(String fileName, ImageFormat format, boolean isId, int id){
@@ -93,7 +103,7 @@ public class AndroidGraphics implements Graphics {
         else
             format = ImageFormat.ARGB8888;
 
-        return new AndroidImage(bitmap, format);
+        return new AndroidImage(bitmap, format, id);
     }
 
     @Override
@@ -127,7 +137,7 @@ public class AndroidGraphics implements Graphics {
     	canvas.drawText(text, x, y, paint);
     }
 
-    public void drawImage(Image Image, int x, int y, int srcX, int srcY,
+    public void drawImage(Image image, int x, int y, int srcX, int srcY,
             int srcWidth, int srcHeight) {
         srcRect.left = srcX;
         srcRect.top = srcY;
@@ -139,26 +149,28 @@ public class AndroidGraphics implements Graphics {
         dstRect.right = x + srcWidth;
         dstRect.bottom = y + srcHeight;
 
-        canvas.drawBitmap(((AndroidImage) Image).bitmap, srcRect, dstRect,
+        canvas.drawBitmap(((AndroidImage) image).getBitmap(), srcRect, dstRect,
                 null);
     }
 
     @Override
     public void drawImage(Image Image, int x, int y) {
-        canvas.drawBitmap(((AndroidImage)Image).bitmap, x, y, null);
+        canvas.drawBitmap(((AndroidImage)Image).getBitmap(), x, y, null);
     }
 
     @Override
     public void drawImage(Image image, Location location){
-        if(location.srcX == -1){
-            drawImage(image, location.x, location.y);
+        if(location.getSrcX() == -1){
+            drawImage(image, (int) location.getX(), (int) location.getY());
         }
         else{
-            drawImage(image, location.x,location.y,location.srcX,location.srcY,location.srcWidth,location.srcHeight);
+            drawImage(image, (int) location.getX(), (int) location.getY(),
+                    (int) location.getSrcX(),(int) location.getSrcY(),
+                    (int) location.getSrcWidth(), (int) location.getSrcHeight());
         }
     }
 
-    public void drawScaledImage(Image Image, int x, int y, int width, int height, int srcX, int srcY, int srcWidth, int srcHeight){
+    public void drawScaledImage(Image image, int x, int y, int width, int height, int srcX, int srcY, int srcWidth, int srcHeight){
 
    	    srcRect.left = srcX;
         srcRect.top = srcY;
@@ -170,7 +182,7 @@ public class AndroidGraphics implements Graphics {
         dstRect.right = x + width;
         dstRect.bottom = y + height;
 
-        canvas.drawBitmap(((AndroidImage) Image).bitmap, srcRect, dstRect, null);
+        canvas.drawBitmap(((AndroidImage) image).getBitmap(), srcRect, dstRect, null);
 
     }
 

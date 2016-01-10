@@ -2,6 +2,7 @@ package com.game.android.jpbg.swaggypenguin;
 
 import com.game.android.jpbg.framework.Screen;
 import com.game.android.jpbg.framework.implementation.AndroidGame;
+import com.game.android.jpbg.swaggypenguin.LoadingScreens.SplashLoadingScreen;
 
 /**
  * Created by Joy on 8/19/15.

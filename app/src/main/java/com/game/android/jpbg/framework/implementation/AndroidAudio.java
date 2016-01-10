@@ -14,9 +14,9 @@ import com.game.android.jpbg.framework.Sound;
 import java.io.IOException;
 
 public class AndroidAudio implements Audio {
-    AssetManager assets;
-    SoundPool soundPool;
-    Resources resources;
+    private AssetManager assets;
+    private SoundPool soundPool;
+    private Resources resources;
 
     public AndroidAudio(Activity activity) {
         activity.setVolumeControlStream(AudioManager.STREAM_MUSIC);

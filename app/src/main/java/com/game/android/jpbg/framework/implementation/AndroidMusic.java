@@ -12,8 +12,8 @@ import com.game.android.jpbg.framework.Music;
 import java.io.IOException;
 
 public class AndroidMusic implements Music, OnCompletionListener, OnSeekCompleteListener, OnPreparedListener, OnVideoSizeChangedListener {
-    MediaPlayer mediaPlayer;
-    boolean isPrepared = false;
+    private MediaPlayer mediaPlayer;
+    private boolean isPrepared = false;
 
     public AndroidMusic(AssetFileDescriptor assetDescriptor) {
         mediaPlayer = new MediaPlayer();

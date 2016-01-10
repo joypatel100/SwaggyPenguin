@@ -21,13 +21,13 @@ import com.game.android.jpbg.framework.Input;
 import com.game.android.jpbg.framework.Screen;
 
 public abstract class AndroidGame extends Activity implements Game {
-    AndroidFastRenderView renderView;
-    Graphics graphics;
-    Audio audio;
-    Input input;
-    FileIO fileIO;
-    Screen screen;
-    WakeLock wakeLock;
+    private AndroidFastRenderView renderView;
+    private Graphics graphics;
+    private Audio audio;
+    private Input input;
+    private FileIO fileIO;
+    private Screen screen;
+    private WakeLock wakeLock;
 
     private final String LOG_TAG = AndroidGame.class.getSimpleName();
 

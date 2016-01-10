@@ -17,10 +17,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class AndroidFileIO implements FileIO {
-	Context context;
-    AssetManager assets;
-    Resources resources;
-    String externalStoragePath;
+	private Context context;
+    private AssetManager assets;
+    private Resources resources;
+    private String externalStoragePath;
 
     public AndroidFileIO(Context context) {
         this.context = context;

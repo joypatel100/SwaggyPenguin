@@ -7,19 +7,13 @@ public class Location {
 
     private final int upDownDeltaY = 5; // Change in y for button presses
 
-    public int x;
-    public int y;
-    public int srcX;
-    public int srcY;
-    public int srcWidth;
-    public int srcHeight;
-    private boolean isDown = false;
+    private float x, y, srcX, srcY, srcWidth, srcHeight;
 
-    public Location(int x, int y){
+    public Location(float x, float y){
         this(x,y,-1,-1,-1,-1);
     }
 
-    public Location(int x, int y, int width, int height){
+    public Location(float x, float y, float width, float height){
         this(x,y,-1,-1,width,height);
     }
 
@@ -27,7 +21,7 @@ public class Location {
         this(location.x,location.y,location.srcX,location.srcY,location.srcWidth,location.srcHeight);
     }
 
-    public Location(int x, int y, int srcX, int srcY, int srcWidth, int srcHeight){
+    public Location(float x, float y, float srcX, float srcY, float srcWidth, float srcHeight){
         this.x = x;
         this.y = y;
         this.srcX = srcX;
@@ -37,30 +31,39 @@ public class Location {
         // Note: if srcX = -1, then srcY = -1
     }
 
-    public void down(){
-        down(upDownDeltaY);
-    }
-
-    public void up(){
-        up(upDownDeltaY);
-    }
-
-    public void down(int deltaY){
-        if(!isDown) {
-            y += deltaY;
-            isDown = true;
-        }
-    }
-
-    public void up(int deltaY){
-        if(isDown) {
-            y -= deltaY;
-            isDown = false;
-        }
-    }
-
     public String toString(){
         return "" + x + " " + y;
     }
 
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getSrcX() {
+        return srcX;
+    }
+
+    public float getSrcY() {
+        return srcY;
+    }
+
+    public float getSrcWidth() {
+        return srcWidth;
+    }
+
+    public float getSrcHeight() {
+        return srcHeight;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
 }

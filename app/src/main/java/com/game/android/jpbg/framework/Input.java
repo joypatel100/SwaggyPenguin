@@ -14,7 +14,21 @@ public interface Input {
         public int x, y;
         public int pointer;
 
+        public int getType(){
+            return this.type;
+        }
 
+        public int getX(){
+            return x;
+        }
+
+        public int getY(){
+            return y;
+        }
+
+        public int getPointer(){
+            return pointer;
+        }
     }
 
     public boolean isTouchDown(int pointer);
@@ -24,5 +38,11 @@ public interface Input {
     public int getTouchY(int pointer);
 
     public List<TouchEvent> getTouchEvents();
+
+    public float getAccelX();
+
+    public float getAccelY();
+
+    public float getAccelZ();
 }
  

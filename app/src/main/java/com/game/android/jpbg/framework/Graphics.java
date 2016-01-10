@@ -2,12 +2,17 @@ package com.game.android.jpbg.framework;
 
 
 import android.graphics.Paint;
+
 import com.game.android.jpbg.framework.implementation.Location;
 
 public interface Graphics {
 	public static enum ImageFormat {
 		ARGB8888, ARGB4444, RGB565
 	}
+
+	public Image newImage(String fileName);
+
+	public Image newImage(int id);
 
 	public Image newImage(int id, ImageFormat format);
 

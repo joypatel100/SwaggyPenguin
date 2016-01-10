@@ -1,9 +1,8 @@
-package com.game.android.jpbg.swaggypenguin;
+package com.game.android.jpbg.swaggypenguin.LoadingScreens;
 
 import com.game.android.jpbg.framework.Game;
-import com.game.android.jpbg.framework.Graphics;
-import com.game.android.jpbg.framework.Graphics.ImageFormat;
 import com.game.android.jpbg.framework.Screen;
+import com.game.android.jpbg.swaggypenguin.GameResources;
 
 /**
  * Created by Joy on 8/19/15.
@@ -11,17 +10,16 @@ import com.game.android.jpbg.framework.Screen;
 public class SplashLoadingScreen extends Screen {
 
     private final String LOG_TAG = SplashLoadingScreen.class.getSimpleName();
+    GameResources gameResources;
 
     public SplashLoadingScreen(Game game) {
         super(game);
+        gameResources = new GameResources(game);
     }
 
     @Override
     public void update(float deltaTime) {
-        Graphics g = game.getGraphics();
-        GameValues.splashImg = g.newImage(R.drawable.splash_screen, ImageFormat.RGB565);
-
-        game.setScreen(new LoadingScreen(game));
+        game.setScreen(new LoadingScreen(game,gameResources));
     }
 
     @Override

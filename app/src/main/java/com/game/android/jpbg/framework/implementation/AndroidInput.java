@@ -7,14 +7,18 @@ import com.game.android.jpbg.framework.Input;
 
 import java.util.List;
 
-public class AndroidInput implements Input {    
-    TouchHandler touchHandler;
+public class AndroidInput implements Input {
+
+
+    private TouchHandler touchHandler;
+    private AccelerometerHandler accelerometerHandler;
 
     public AndroidInput(Context context, View view, float scaleX, float scaleY) {
         if(android.os.Build.VERSION.SDK_INT < 5)
             touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
         else
-            touchHandler = new MultiTouchHandler(view, scaleX, scaleY);        
+            touchHandler = new MultiTouchHandler(view, scaleX, scaleY);
+        accelerometerHandler = new AccelerometerHandler(context);
     }
 
     @Override
@@ -36,5 +40,20 @@ public class AndroidInput implements Input {
     public List<TouchEvent> getTouchEvents() {
         return touchHandler.getTouchEvents();
     }
-    
+
+    @Override
+    public float getAccelX() {
+        return accelerometerHandler.getAccelX();
+    }
+
+    @Override
+    public float getAccelY() {
+        return accelerometerHandler.getAccelY();
+    }
+
+    @Override
+    public float getAccelZ() {
+        return accelerometerHandler.getAccelZ();
+    }
+
 }

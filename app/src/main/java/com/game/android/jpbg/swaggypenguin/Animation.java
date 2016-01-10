@@ -1,7 +1,5 @@
 package com.game.android.jpbg.swaggypenguin;
 
-import com.game.android.jpbg.framework.Image;
-
 import java.util.ArrayList;
 
 /**
@@ -10,19 +8,28 @@ import java.util.ArrayList;
 public class Animation {
 
     public class Frame{
-        Image image;
-        long endTime;
+        private int imageId;
+        private float endTime;
 
-        public Frame(Image image, long endtime){
-            this.image = image;
-            this.endTime = endtime;
+        public Frame(int image, float endTime){
+            this.imageId = image;
+            this.endTime = endTime;
         }
     }
 
-    public ArrayList<Frame> frames;
-    public int currentFrame;
-    public long animTime;
-    public long totalDuration;
+    private ArrayList<Frame> frames;
+    private int currentFrame;
+    private float animTime;
+    private float totalDuration;
+
+    public Animation(int[] ids, float maxDuration){
+        this();
+        float frameDuration = maxDuration/ids.length;
+        for(Integer id: ids){
+            addFrame(id,frameDuration);
+        }
+
+    }
 
     public Animation(){
         this.frames = new ArrayList<>();
@@ -45,7 +52,7 @@ public class Animation {
         return animTime == 0;
     }
 
-    public synchronized void addFrame(Image image, long duration) {
+    public synchronized void addFrame(int image, float duration) {
         totalDuration += duration;
         frames.add(new Frame(image, totalDuration));
     }
@@ -54,11 +61,11 @@ public class Animation {
         return frames.get(i);
     }
 
-    public synchronized Image getImage() {
+    public synchronized int getImageId() {
         if (frames.size() == 0) {
-            return null;
+            return -1;
         } else {
-            return getFrame(currentFrame).image;
+            return getFrame(currentFrame).imageId;
         }
     }
 
@@ -75,7 +82,5 @@ public class Animation {
         }
 
     }
-
-
 
 }
